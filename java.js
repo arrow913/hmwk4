@@ -1,9 +1,11 @@
-var questions = [{
-    question: "1. What year is this Chevy?",
-    
+var images = document.createElement('img')
+images.src  = "images/18221693_1922469924695750_5749360884657927889_n copy.jpeg",
+document.querySelector('.images').appendChild(images)
+var questions = [
+    {
+    question: "1. What year is this Chevy?", 
     choices: ["1955", "1956", "1957", "1958"],
     correctAnswer: 0,
-    images: img1="images/18221693_1922469924695750_5749360884657927889_n copy.jpeg"
 }, {
     question: "2. What year is this Chevy?",
     choices: ["1964", "1965", "1969", "1970"],
@@ -22,13 +24,13 @@ var questions = [{
     correctAnswer: 0
 
 }];
-var img1 = "images/18221693_1922469924695750_5749360884657927889_n copy.jpeg";
+
 var currentQuestion = 0;
 var viewingAns = 0;
 var correctAnswers = 0;
 var quizOver = false;
 var iSelectedAnswer = [];
-var c = 60;
+var c = 61;
 var t;
 $(document).ready(function () {
     // Display the first question
@@ -71,14 +73,13 @@ $(document).ready(function () {
                 $(document).find(".quizMessage").show();
             }
             else {
-                // TODO: Remove any message -> not sure if this is efficient to call this each time....
                 $(document).find(".quizMessage").hide();
                 if (val == questions[currentQuestion].correctAnswer) {
                     correctAnswers++;
                 }
                 iSelectedAnswer[currentQuestion] = val;
 
-                currentQuestion++; // Since we have already displayed the first question on DOM ready
+                currentQuestion++; 
                 if (currentQuestion >= 1) {
                     $('.preButton').prop("disabled", false);
                 }
@@ -92,7 +93,7 @@ $(document).ready(function () {
                     $('#timer').html("You scored: " + correctAnswers + " out of: " + questions.length);
                     c = 60;
                     $(document).find(".preButton").text("View Answer");
-                    $(document).find(".nextButton").text("Play Again?");
+                    
                     quizOver = true;
                     return false;
 
@@ -119,32 +120,35 @@ function timedCount() {
     if (c == 60) {
         return false;
     }
-    var seconds = c % 80;
+    
+  var seconds = c % 61;
     var result = (seconds < 10 ? "0" + seconds : seconds);
     $('#timer').html(result);
-
     if (c == 0) {
         displayScore();
         $('#iTimeShow').html('Quiz Time Completed!');
         $('#timer').html("You scored: " + correctAnswers + " out of: " + questions.length);
         c = 60;
         $(document).find(".preButton").text("View Answer");
-        $(document).find(".nextButton").text("Play Again?");
-        quizOver = true;
+         quizOver = true;
         return false;
-
+        
     }
+    
+    
     c = c - 1;
     t = setTimeout(function () {
         timedCount()
-    }, 1500);
+    }, 1000);
+   
+    
 }
 
 
 // This displays the current question AND the choices
 function displayCurrentQuestion() {
 
-    if (c == 60) { c = 59; timedCount(); }
+    if (c == 61) { c = 59; timedCount(); }
     //console.log("In display current Question");
     var question = questions[currentQuestion].question;
     var questionClass = $(document).find(".quizContainer > .question");
@@ -186,9 +190,9 @@ function hideScore() {
 // This displays the current question AND the choices
 function viewResults() {
 
-    if (currentQuestion == 10) { currentQuestion = 0; return false; }
+    if (currentQuestion == 5) { currentQuestion = 0; return false; }
     if (viewingAns == 1) { return false; }
-
+    
     hideScore();
     var question = questions[currentQuestion].question;
     var questionClass = $(document).find(".quizContainer > .question");
@@ -220,7 +224,7 @@ function viewResults() {
     }
 
     currentQuestion++;
-
+    
     setTimeout(function () {
         viewResults();
     }, 3000);
