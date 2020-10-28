@@ -29,7 +29,7 @@ var viewingAns = 0;
 var correctAnswers = 0;
 var quizOver = false;
 var iSelectedAnswer = [];
-var c = 61
+var c = 59
 
 $(document).ready(function () {
     displayCurrentQuestion();
@@ -97,7 +97,7 @@ $(document).ready(function () {
             }
 
         }
-        else { // quiz is over and clicked the next button (which now displays 'Play Again?'
+        else { 
         quizOver = false; $('#iTimeShow').html('Time Remaining:'); iSelectedAnswer = [];
         $(document).find(".nextButton").text("Next Question");
         $(document).find(".preButton").text("Previous Question");
@@ -135,12 +135,15 @@ function timedCount() {
     c = c - 1;
     t = setTimeout(function () {
         timedCount()
-    }, 1500);
-
+    }, 1000);
 
 }
 
-
+function takeTime(){
+    if (correctAnswers + 1){
+        c - 5;
+    }console.log(correctAnswer);
+}
 
 function displayCurrentQuestion() {
 
@@ -175,6 +178,7 @@ function displayCurrentQuestion() {
     function displayScore() {
         $(document).find(".quizContainer > .result").text("You scored: " + correctAnswers + " out of: " + questions.length);
         $(document).find(".quizContainer > .result").show();
+        prompt ("Enter Initals")
     }
 
     function hideScore() {
